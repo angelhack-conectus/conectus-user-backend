@@ -18,7 +18,7 @@ async def send_user_info(data: dict):
                       'groupId': constant.group_id, 'hpno': data.get('id'), 'latitude': lat, 'logitude': log,
                       'myHost': data.get('my_host'), 'online': data.get('is_online')}}
     async with aiohttp.ClientSession() as session:
-        async with session.post(urljoin(host, '/users/{}'.format(data.get('id'))),
+        async with session.post(urljoin(host, '/users'),
                                 json=data) as response:
             print(await response.text())
 
