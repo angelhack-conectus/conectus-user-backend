@@ -1,0 +1,5 @@
+pubmarine
+aiohttp
+aiosqlite
+ujson
+sanic
