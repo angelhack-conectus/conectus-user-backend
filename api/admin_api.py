@@ -20,7 +20,7 @@ async def send_user_info(data: dict):
     async with aiohttp.ClientSession() as session:
         async with session.post(urljoin(host, '/users'),
                                 json=data) as response:
-            print(await response.text())
+            print('admin send_user_info' + await response.text())
 
 
 async def delete_user(user_id):

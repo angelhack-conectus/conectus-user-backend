@@ -1,3 +1,4 @@
+import asyncio
 import traceback
 import uuid
 
@@ -7,6 +8,7 @@ from websockets import ConnectionClosed
 
 import constant
 from db.sqlite import update_or_insert_user_info, get_all_user_info
+from api import admin_api
 
 
 async def make_reply(msg: str, *args) -> str:
@@ -87,6 +89,8 @@ class GroupInfo(Message):
 
 class UpdateInfo(Message):
     async def generate_reply(self):
+        _loop = asyncio.get_event_loop()
+        _loop.create_task(admin_api.send_user_info(self.input_data))
         await update_or_insert_user_info(self.input_data)
         self.reply = {'status': "ok"}
 

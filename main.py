@@ -2,7 +2,7 @@ import asyncio
 import async_timeout
 
 from pubmarine import PubPen
-from sanic import Sanic
+from sanic import Sanic, response
 from sanic.request import Request
 from sanic.response import json
 from sanic.websocket import WebSocketProtocol, ConnectionClosed, WebSocketCommonProtocol
@@ -25,7 +25,7 @@ async def setup_db(_app, loop):
 
 @app.route("/")
 async def test(request):
-    return json({"hello": "world"})
+    return response.redirect('/chat.html')
 
 
 @app.websocket('/websocket/')
@@ -77,6 +77,7 @@ def chat_from_admin(request: Request, user_id):
     return ''
 
 
+app.static('/', './static')
 if __name__ == "__main__":
     _loop = asyncio.ProactorEventLoop()
     asyncio.set_event_loop(_loop)
