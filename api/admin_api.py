@@ -17,16 +17,17 @@ async def send_user_info(data: dict):
     data = {'Users': {'battery': data.get('battery'), 'connectedHost': data.get('connected_host'),
                       'groupId': constant.group_id, 'hpno': data.get('id'), 'latitude': lat, 'logitude': log,
                       'myHost': data.get('my_host'), 'online': data.get('is_online')}}
-    async with aiohttp.ClientSession() as session:
-        async with session.post(urljoin(host, '/users'),
-                                json=data) as response:
-            print('admin send_user_info' + await response.text())
+    # async with aiohttp.ClientSession() as session:
+    #     async with session.post(urljoin(host, '/users'),
+    #                             json=data) as response:
+    #         print('admin send_user_info' + await response.text())
 
 
 async def delete_user(user_id):
-    async with aiohttp.ClientSession() as session:
-        async with session.post(urljoin(host, '/users/{}/delete'.format(user_id))) as response:
-            print(await response.text())
+    pass
+    # async with aiohttp.ClientSession() as session:
+    #     async with session.post(urljoin(host, '/users/{}/delete'.format(user_id))) as response:
+    #         print(await response.text())
 
 
 if __name__ == '__main__':
