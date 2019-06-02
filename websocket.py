@@ -3,6 +3,7 @@ import uuid
 
 import pubmarine
 import ujson
+from websockets import ConnectionClosed
 
 import constant
 from db.sqlite import update_or_insert_user_info, get_all_user_info
@@ -61,6 +62,8 @@ class Message:
                 return ujson.dumps(self._reply)
 
             return '{"error": "invalid message"}'
+        except ConnectionClosed:
+            raise
         except:
             traceback.print_exc()
 

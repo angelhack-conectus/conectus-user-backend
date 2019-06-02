@@ -44,7 +44,7 @@ async def update_or_insert_user_info(data: dict):
                 pk = row['id']
 
         if pk:
-            sql = 'UPDATE `users` SET `battery`=?, host=?, connected_host=?, is_online=?, gps=?  WHERE `id`=?;'
+            sql = 'UPDATE `users` SET `battery`=?, host=?, connected_host=?, is_online=?, gps=?, `active`=1  WHERE `id`=?;'
             await db.execute(sql, (
                 data.get('battery', 0), data.get('host', ''), data.get('connected_host', ''),
                 data.get('is_online'),
@@ -79,7 +79,7 @@ async def get_all_user_info():
 async def disable_user(user_id):
     sql = 'UPDATE `users` SET `active`=0 WHERE `mac_address`=?;'
     async with create_connect() as db:
-        await db.execute(sql, user_id)
+        await db.execute(sql, (user_id,))
         await db.commit()
 
 
